@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        #time-input {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>Alarm Clock</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Alarm Clock</h1>
+        <input type="time" id="time-input" class="form-control">
+        <button onclick="setAlarm()" class="btn btn-primary">Set Alarm</button>
+        <audio id="alarm-sound" src="path-to-your-alarm-sound.mp3"></audio>
+    </div>
+
+    <script>
+        function setAlarm() {
+            const alarmTime = document.getElementById('time-input').value;
+
+            if (alarmTime) {
+                const now = new Date();
+                const alarm = new Date(now.toDateString() + ' ' + alarmTime);
+                const currentTime = now.getTime();
+                const alarmTimeValue = alarm.getTime();
+
+                if (alarmTimeValue > currentTime) {
+                    const timeDifference = alarmTimeValue - currentTime;
+                    setTimeout(() => {
+                        document.getElementById('alarm-sound').play();
+                        alert('Wake up!');
+                    }, timeDifference);
+                } else {
+                    alert('Please select a future time.');
+                }
+            } else {
+                alert('Please select a valid time.');
+            }
+        }
+    </script>
+</body>
+</html>
